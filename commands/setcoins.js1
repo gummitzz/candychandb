@@ -1,0 +1,25 @@
+const Discord = require("discord.js");
+const fs = require("fs");
+let coins = require("../coins.json");
+module.exports.run = async (bot, message, args) => {
+   if (message.author.id != '266561198303084544') return message.channel.send(`⚠ You do not have permission to use this command , only bot owners may use it.`);
+
+  
+    let mention = message.mentions.members.first();
+    let toSet = args[1];
+
+    if (!mention) return message.channel.send("No mention provided.");
+    if (!toSet || isNaN(toSet)) return message.channel.send("No number provided.");
+    if (!coins[mention.id]) coins[mention.id] = {
+        coins: toSet
+    };
+
+    fs.writeFileSync("./coins.json", JSON.stringify(coins), (err) => {
+        if (err) console.log(err);
+    });
+}
+
+module.exports.help = {
+    name: "setcoins",
+    aliases: ["setcoin"]
+}

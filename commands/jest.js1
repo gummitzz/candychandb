@@ -1,0 +1,9 @@
+const Discord = module.require("discord.js");
+
+module.exports.run = async (client, message, args) => {
+
+var str= message
+var n=str.replace("71","My Blog");
+    await message.channel.send(n);
+}
+

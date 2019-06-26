@@ -1,0 +1,61 @@
+const Discord = require("discord.js");
+const fs = require("fs");
+let coins = require("../coins.json");
+const ms = require("ms");
+module.exports.run = async (bot, message, args) => {
+  //!pay @isatisfied 59345
+
+  
+ 
+
+  
+  let uCoins = coins[message.author.id].coins;
+
+  let sCoins = coins[message.author.id].coins;
+let min = 1
+  if(uCoins < min) return message.reply("select more than 20 cummies!");
+
+   let u = message.author.displayAvatarURL;
+    
+
+    if(!coins[message.author.id]) return message.reply("You have no coins to gamble...?");
+    if (coins[message.author.id].coins - args[0] < 0) return;
+
+    let arr = ["🍎", "🍌", "🍒", "🍋", "🥝", "🍊", "🍑", "🍉", "🍇", "🍓"];
+    let o1 = arr[Math.floor(Math.random() * arr.length)];
+    let o2 = arr[Math.floor(Math.random() * arr.length)];
+    let o3 = arr[Math.floor(Math.random() * arr.length)];
+    let o4 = arr[Math.floor(Math.random() * arr.length)];
+    let o5 = arr[Math.floor(Math.random() * arr.length)];
+    let o6 = arr[Math.floor(Math.random() * arr.length)];
+    let o7 = arr[Math.floor(Math.random() * arr.length)];
+    let o8 = arr[Math.floor(Math.random() * arr.length)];
+    let o9 = arr[Math.floor(Math.random() * arr.length)];
+
+    let embed = new Discord.RichEmbed()
+        .setDescription(`${o4}${o5}${o6}\n${o1}${o2}${o3}   **<-----**\n${o7}${o8}${o9}`)
+        .setColor("RANDOM")
+        .setTimestamp();
+    
+    if (o1 == o2 && o2 == o3) {
+          coins[message.author.id] = {
+    coins: sCoins + args[0] * 1000 , u
+  };
+
+        return message.channel.send(embed.setFooter("You won " + args[0] * 1000 , u));
+  
+    } else if (o1 == o2 || o2 == o3 || o1 == o3) {
+        return message.channel.send(embed.setFooter("You sort of won " + args[0] * 500, u));
+    } else {
+        return message.channel.send(embed.setFooter("You lost " + args[0], u));
+    }
+}
+fs.writeFile("./coins.json", JSON.stringify(coins), (err) => {
+    if(err) console.log(err)
+  
+
+   
+  });
+
+
+

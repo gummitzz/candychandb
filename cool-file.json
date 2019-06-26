@@ -1,0 +1,1 @@
+coins: sCoins - parseInt(args[1])
